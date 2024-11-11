@@ -1,0 +1,37 @@
+pipeline
+   {
+       agent any
+    stages{
+        stage ('Code')
+        {
+            steps {
+                git url : "https://github.com/mastermorejayesh/Webstore_Application_node.git" , branch : "master"
+                 echo 'code Stage is complited'
+            }
+        }
+
+         stage ('build Stage')
+        {
+            steps {
+              sh "docker build -t webstore_app:latest ."
+                 echo 'Build Stage is complited'
+            }
+        }
+
+        stage ('Run Stage')
+        {
+            steps {
+
+            sh "docker run -d -p 3000:3000 webstore_app:latest"
+                 echo 'Run Stage is complited'
+            }
+        }
+
+         stage ('Deploy stage')
+        {
+            steps {
+                 echo '*=*=*=*=*=*=*=*=*Deployment sucessfylly complited*=*=*=*=*=*=*=*=*'
+            }
+        }
+    }
+   }
